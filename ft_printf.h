@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:14:43 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/25 18:53:44 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/03/28 21:55:29 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		ft_nbrlen(long int a);
 int		ft_put_pointer(uintptr_t ptr);
 int		ft_putnbr_hex(unsigned long int nb, char x);
 int		ft_putunsign_nbr(unsigned int nb);
+int		ft_strlen(const char *str);
 
 // ft_printf.c
 int		ft_printf(const char *str, ...);
@@ -47,6 +48,11 @@ int		printf_handler(const char *str, int i, va_list args, t_flags *flags);
 
 // flags_handlers
 int		minus_handler(const char *str, int i, va_list args, t_flags *flags);
+void	minus_printf_handler(const char *str, int i, va_list args, t_flags *flags);
+int		minus_sting(va_list args, t_flags *flags);
+int		minus_int(va_list args, t_flags *flags);
+int		minus_unsign(const char *str, int i, va_list args, t_flags *flags);
+
 int		zero_handler(const char *str, int i, va_list args, t_flags *flags);
 int		dot_handler(const char *str, int i, va_list args, t_flags *flags);
 

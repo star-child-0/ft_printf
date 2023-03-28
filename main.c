@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:42:04 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/28 19:48:19 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/03/28 21:27:12 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ int	main(int argc, char **argv)
 	// printf("%-2c\n", 'a');
 	// printf("%-2c\n", '0');
 	// printf("%-3c\n", '0');
-	// printf("%-4c\n", '0');
-//			 2 4
-	ft_printf("%-5c\n", 'a');
+	// printf("%-6s\n", "Hello");
+	// printf("%-4s\n", "Hello");
+	printf("printf ret: %d\n", printf("%-5c\n", 'a'));
+	printf("ft_printf ret: %d", ft_printf("%-5c\n", 'a'));
 	// ft_printf("%-2c\n", '0');
 	// ft_printf("%-3c\n", '0');
 	// ft_printf("%-4c\n", '0');
