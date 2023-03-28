@@ -13,7 +13,6 @@ push_swap/checker
 **/minilibx-linux
 fract-ol/fractol
 libft/*.o
-printfTester/*
 **.o
 
 # Prerequisites
