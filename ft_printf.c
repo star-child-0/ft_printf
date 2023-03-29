@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:34:01 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/28 19:05:30 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:37:36 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	flags_handler(const char *str, int i, va_list args, t_flags *flags)
 			|| str[i + 1] == 'u' || str[i + 1] == 'x' || str[i + 1] == 'X'
 			|| (str[i + 1] >= '0' && str[i + 1] <= '9')))
 		i = minus_handler(str, i, args, flags);
+	else if (str[i] >= '0' && str[i] <= '9')
+		i = width_handler(str, i, args, flags);
 	else
 		i = printf_handler(str, i, args, flags);
 	return (i);

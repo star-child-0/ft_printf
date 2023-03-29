@@ -1,8 +1,8 @@
 FILES = ft_printf.c\
-	minus_handler.c\
+	width_handler.c minus_handler.c\
 	hash_handler.c space_handler.c plus_handler.c \
 	ft_putchar.c ft_putstr.c ft_putnbr.c ft_nbrlen.c ft_put_pointer.c \
-	ft_putnbr_hex.c ft_putunsign_nbr.c ft_atoi.c ft_strlen.c
+	ft_putnbr_hex.c ft_putunsign_nbr.c ft_atoi.c ft_strlen.c \
 
 OBJECTS = $(FILES:.c=.o)
 

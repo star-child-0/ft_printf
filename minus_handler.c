@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:59:31 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/28 21:54:32 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:45:23 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,41 @@ int	minus_handler(const char *str, int i, va_list args, t_flags *flags)
 		while (str[j] >= '0' && str[j] <= '9')
 			flags->width = flags->width * 10 + str[j++] - '0';
 		i = j;
-		minus_printf_handler(str, i, args, flags);
 	}
+	else
+		i++;
+	minus_type_handler(str, i, args, flags);
 	return (i);
 }
 
-void	minus_printf_handler(const char *str, int i, va_list args, t_flags *flags)
+void	minus_type_handler(const char *str, int i, va_list args, t_flags *flags)
 {
 	int			len;
+	int			n;
 	uintptr_t	arg;
 
 	len = 0;
 	if (str[i] == 's')
-		len = minus_sting(args, flags);
+		len = minus_string(args, flags);
 	else if (str[i] == 'c' && len++ > -1)
 		flags->ret += ft_putchar(va_arg(args, int));
 	else if (str[i] == 'd' || str[i] == 'i')
-		minus_int(args, flags);
+		len = minus_int(args, flags);
 	else if (str[i] == 'u' || str[i] == 'X' || str[i] == 'x')
-		minus_unsign(str, i, args, flags);
+		len = minus_unsign(str, i, args, flags);
 	else if (str[i] == 'p')
 	{
 		arg = va_arg(args, uintptr_t);
-		len = ft_nbrlen((uintptr_t)arg);
-		flags->ret += ft_put_pointer(arg);
+		n = ft_put_pointer(arg);
+		flags->ret += n;
+		len = n;
 	}
 	while (flags->width > len++)
 		flags->ret += ft_putchar(' ');
+	flags->width = 0;
 }
 
-int	minus_sting(va_list args, t_flags *flags)
+int	minus_string(va_list args, t_flags *flags)
 {
 	int		len;
 	char	*arg;
@@ -79,12 +84,20 @@ int	minus_unsign(const char *str, int i, va_list args, t_flags *flags)
 	unsigned int	arg;
 
 	arg = va_arg(args, unsigned int);
-	len = ft_nbrlen(arg);
 	if (str[i] == 'u')
+	{
+		len = ft_nbrlen(arg);
 		flags->ret += ft_putunsign_nbr(arg);
+	}
 	else if (str[i] == 'X')
-		flags->ret += ft_putnbr_hex(arg, 'X');
+	{
+		len = ft_putnbr_hex(arg, 'X');
+		flags->ret += len;
+	}
 	else if (str[i] == 'x')
-		flags->ret += ft_putnbr_hex(arg, 'x');
+	{
+		len = ft_putnbr_hex(arg, 'x');
+		flags->ret += len;
+	}
 	return (len);
 }
