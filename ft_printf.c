@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:34:01 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/29 18:37:36 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:41:52 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 t_flags	*init_flags(t_flags *flags)
 {
-	flags->minus = 0;
-	flags->zero = 0;
-	flags->dot = 0;
 	flags->width = 0;
+	flags->len = 0;
 	flags->ret = 0;
 	return (flags);
 }
 
-int	printf_handler(const char *str, int i, va_list args, t_flags *flags)
+int	type_handler(const char *str, int i, va_list args, t_flags *flags)
 {
 	if (str[i] == 'c')
 		flags->ret += ft_putchar(va_arg(args, int));
@@ -43,23 +41,20 @@ int	printf_handler(const char *str, int i, va_list args, t_flags *flags)
 
 int	flags_handler(const char *str, int i, va_list args, t_flags *flags)
 {
-	if (str[i] == '+' && (str[i + 1] == 'd' || str[i + 1] == 'i'))
+	if (str[i] == '+')
 		i = plus_handler(i, args, flags);
-	else if (str[i] == ' ' && (str[i + 1] == 'd' || str[i + 1] == 'i'
-			|| str [i + 1] == 's' || str[i + 1] == ' '
-			|| (str[i + 1] >= '0' && str[i + 1] <= '9')))
+	else if (str[i] == ' ')
 		i = space_handler(str, i, args, flags);
-	else if (str[i] == '#' && (str[i + 1] == 'x' || str[i + 1] == 'X'))
+	else if (str[i] == '#')
 		i = hash_handler(str, i, args, flags);
-	else if (str[i] == '-' && (str[i + 1] == 'c' || str[i + 1] == 's'
-			|| str[i + 1] == 'p' || str[i + 1] == 'd' || str[i + 1] == 'i'
-			|| str[i + 1] == 'u' || str[i + 1] == 'x' || str[i + 1] == 'X'
-			|| (str[i + 1] >= '0' && str[i + 1] <= '9')))
+	else if (str[i] == '-')
 		i = minus_handler(str, i, args, flags);
-	else if (str[i] >= '0' && str[i] <= '9')
+	else if (str[i] == '0')
+		i = zero_handler(str, ++i, args, flags);
+	else if (str[i] >= '1' && str[i] <= '9')
 		i = width_handler(str, i, args, flags);
 	else
-		i = printf_handler(str, i, args, flags);
+		i = type_handler(str, i, args, flags);
 	return (i);
 }
 

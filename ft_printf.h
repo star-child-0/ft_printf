@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:14:43 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/29 19:32:38 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/03/30 20:32:06 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@
 
 typedef struct s_flags
 {
-	int		minus;
-	int		zero;
-	int		dot;
 	int		width;
+	int		len;
 	int		ret;
 }	t_flags;
 
@@ -39,12 +37,13 @@ int		ft_put_pointer(uintptr_t ptr);
 int		ft_putnbr_hex(unsigned long int nb, char x);
 int		ft_putunsign_nbr(unsigned int nb);
 int		ft_strlen(const char *str);
+char	*ft_itoh(unsigned int nbr, char *base);
 
 // ft_printf.c
 int		ft_printf(const char *str, ...);
 t_flags	*init_flags(t_flags *flags);
 int		flags_handler(const char *str, int i, va_list args, t_flags *flags);
-int		printf_handler(const char *str, int i, va_list args, t_flags *flags);
+int		type_handler(const char *str, int i, va_list args, t_flags *flags);
 
 // flags_handlers
 int		minus_handler(const char *str, int i, va_list args, t_flags *flags);
