@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:14:43 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/30 20:32:06 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:09:44 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,11 @@ t_flags	*init_flags(t_flags *flags);
 int		flags_handler(const char *str, int i, va_list args, t_flags *flags);
 int		type_handler(const char *str, int i, va_list args, t_flags *flags);
 
-// flags_handlers
+// flag_handlers
 int		minus_handler(const char *str, int i, va_list args, t_flags *flags);
-void	minus_type_handler(const char *str, int i, va_list args, t_flags *flags);
-int		minus_string(va_list args, t_flags *flags);
-int		minus_int(va_list args, t_flags *flags);
-int		minus_unsign(const char *str, int i, va_list args, t_flags *flags);
-
 int		width_handler(const char *str, int i, va_list args, t_flags *flags);
-void	width_type_handler(const char *str, int i, va_list args, t_flags *flags);
-int		width_string(va_list args, t_flags *flags);
-int		width_int(va_list args, t_flags *flags);
-int		width_unsign(const char *str, int i, va_list args, t_flags *flags);
-
 int		zero_handler(const char *str, int i, va_list args, t_flags *flags);
 int		dot_handler(const char *str, int i, va_list args, t_flags *flags);
-
 int		hash_handler(const char *str, int i, va_list args, t_flags *flags);
 int		space_handler(const char *str, int i, va_list args, t_flags *flags);
 int		plus_handler(int i, va_list args, t_flags *flags);

@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:34:01 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/30 19:41:52 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/03/31 09:02:56 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	flags_handler(const char *str, int i, va_list args, t_flags *flags)
 		i = zero_handler(str, ++i, args, flags);
 	else if (str[i] >= '1' && str[i] <= '9')
 		i = width_handler(str, i, args, flags);
+	else if (str[i] == '.')
+		i = dot_handler(str, ++i, args, flags);
 	else
 		i = type_handler(str, i, args, flags);
 	return (i);
