@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 19:47:49 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/31 12:15:08 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:50:45 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	zero_put_x(char x, long long arg, t_flags *flags)
 		flags->ret += ft_putstr("00ffffffff");
 	else if ((long)arg == LONG_MIN)
 		flags->ret += ft_putstr("0");
-	else if ((unsigned long)arg == ULONG_MAX)
+	else if ((unsigned long)arg == 4294967295)
 		flags->ret += ft_putstr("00ffffffff");
 	else if ((long long)arg == 9223372036854775807LL)
 		flags->ret += ft_putstr("0000000ffffffff");
@@ -64,7 +64,7 @@ void	zero_put_big_x(char x, long long arg, t_flags *flags)
 		flags->ret += ft_putstr("00FFFFFFFF");
 	else if ((long)arg == LONG_MIN)
 		flags->ret += ft_putstr("0");
-	else if ((unsigned long)arg == ULONG_MAX)
+	else if ((unsigned long)arg == 4294967295)
 		flags->ret += ft_putstr("00FFFFFFFF");
 	else if ((long long)arg == 9223372036854775807LL)
 		flags->ret += ft_putstr("0000000FFFFFFFF");
