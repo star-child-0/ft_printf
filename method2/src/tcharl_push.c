@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hex_width.c                                        :+:      :+:    :+:   */
+/*   tcharl_push.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 11:47:24 by anvannin          #+#    #+#             */
-/*   Updated: 2023/04/01 11:47:24 by anvannin         ###   ########.fr       */
+/*   Created: 2023/04/01 19:34:24 by anvannin          #+#    #+#             */
+/*   Updated: 2023/04/01 19:34:24 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	hex_width(int n)
+void	tcharl_push(t_charl **list, char c)
 {
-	int	l;
+	t_charl	*new;
 
-	l = 1;
-	if (n == 0)
-		return (1);
-	if (n < 0)
-		n *= -1;
-	while (n > 15)
-	{
-		n /= 16;
-		l++;
-	}
-	return (l);
+	new = malloc(sizeof(t_charl));
+	new->content = c;
+	new->next = *list;
+	*list = new;
 }

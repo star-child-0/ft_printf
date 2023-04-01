@@ -6,11 +6,11 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:59:31 by anvannin          #+#    #+#             */
-/*   Updated: 2023/04/01 15:14:21 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/04/01 17:51:05 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 int	minus_string(va_list args, t_flags *flags)
 {
@@ -52,7 +52,7 @@ int	minus_unsign(const char *str, int i, va_list args, t_flags *flags)
 		len = ft_putnbr_hex(arg, 'X');
 		flags->ret += len;
 	}
-	else if (str[i] == 'x')
+	else
 	{
 		len = ft_putnbr_hex(arg, 'x');
 		flags->ret += len;

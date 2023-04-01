@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoh.c                                          :+:      :+:    :+:   */
+/*   hex_width.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 20:22:00 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/30 20:22:00 by anvannin         ###   ########.fr       */
+/*   Created: 2023/04/01 11:47:24 by anvannin          #+#    #+#             */
+/*   Updated: 2023/04/01 11:47:24 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-char	*ft_itoh(unsigned int n, char *base)
+int	hex_width(int n)
 {
-	int		l;
-	int		i;
-	char	*str;
+	int	l;
 
 	l = 1;
-	i = n;
-	while (n > 15 && l++)
-		n /= 16;
-	n = i;
-	i = 0;
-	str = malloc(sizeof(char) * l + 1);
-	while (i < l)
+	if (n == 0)
+		return (1);
+	if (n < 0)
+		n *= -1;
+	while (n > 15)
 	{
-		str[i] = base[n % 16];
 		n /= 16;
-		i++;
+		l++;
 	}
-	str[l] = '\0';
-	return (str);
+	return (l);
 }

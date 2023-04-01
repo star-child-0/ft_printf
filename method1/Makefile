@@ -5,9 +5,12 @@ FILES = ft_printf.c\
 	ft_putnbr_hex.c ft_putunsign_nbr.c ft_atoi.c ft_strlen.c ft_itoh.c\
 	hex_width.c dot_put_hexes.c
 
-OBJECTS = $(FILES:.c=.o)
+SRC_DIR = ./srcs/
+SRC = $(addprefix $(SRC_DIR), $(FILES))
 
-CC = gcc
+OBJECTS = $(SRC:.c=.o)
+
+CC = cc
 
 RM = rm -f
 
@@ -21,7 +24,7 @@ bonus: all
 
 $(NAME): $(OBJECTS)
 	@echo "Compiling ft_printf"
-	@$(CC) $(CFLAGS) -c $(FILES)
+	@$(CC) $(CFLAGS) -c $(SRC)
 	@ar -rs libftprintf.a $(OBJECTS)
 	@echo "Done"
 
