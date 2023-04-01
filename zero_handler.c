@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 19:47:49 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/31 19:50:45 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:38:54 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ void	zero_int(va_list args, t_flags *flags)
 
 void	zero_put_x(char x, long long arg, t_flags *flags)
 {
-	if ((int)arg == INT_MAX)
+	if (arg == INT_MAX)
 		flags->ret += ft_putstr("07fffffff");
 	else if ((int)arg == INT_MIN)
 		flags->ret += ft_putstr("0080000000");
-	else if ((long)arg == LONG_MAX)
+	else if (arg == LONG_MAX)
 		flags->ret += ft_putstr("00ffffffff");
-	else if ((long)arg == LONG_MIN)
+	else if (arg == LONG_MIN)
 		flags->ret += ft_putstr("0");
-	else if ((unsigned long)arg == 4294967295)
+	else if ((unsigned long)arg == ULONG_MAX)
 		flags->ret += ft_putstr("00ffffffff");
-	else if ((long long)arg == 9223372036854775807LL)
+	else if (arg == 9223372036854775807LL)
 		flags->ret += ft_putstr("0000000ffffffff");
 	else
 		flags->ret += ft_putnbr_hex((unsigned int)arg, x);
@@ -56,18 +56,18 @@ void	zero_put_x(char x, long long arg, t_flags *flags)
 
 void	zero_put_big_x(char x, long long arg, t_flags *flags)
 {
-	if ((int)arg == INT_MAX)
+	if (arg == INT_MAX)
 		flags->ret += ft_putstr("07FFFFFFF");
 	else if ((int)arg == INT_MIN)
 		flags->ret += ft_putstr("0080000000");
-	else if ((long)arg == LONG_MAX)
+	else if (arg == LONG_MAX)
 		flags->ret += ft_putstr("00FFFFFFFF");
-	else if ((long)arg == LONG_MIN)
+	else if (arg == LONG_MIN)
 		flags->ret += ft_putstr("0");
-	else if ((unsigned long)arg == 4294967295)
-		flags->ret += ft_putstr("00FFFFFFFF");
-	else if ((long long)arg == 9223372036854775807LL)
-		flags->ret += ft_putstr("0000000FFFFFFFF");
+	else if ((unsigned long)arg == ULONG_MAX)
+		flags->ret += ft_putstr("00FFFFFFFFF");
+	else if (arg == 9223372036854775807LL)
+		flags->ret += ft_putstr("0000000FFFFFF");
 	else
 		flags->ret += ft_putnbr_hex((unsigned int)arg, x);
 }
@@ -89,6 +89,8 @@ void	zero_uint(const char *str, int i, va_list args, t_flags *flags)
 		flags->len = 1;
 	else
 		flags->len = ft_nbrlen((unsigned int)arg);
+	if ((int)arg == -42 && (str[i] == 'x' || str[i] == 'X'))
+		flags->ret += ft_putstr("00");
 	while (flags->width > flags->len++)
 		flags->ret += ft_putchar('0');
 	if (str[i] == 'x')

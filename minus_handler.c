@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 18:59:31 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/31 12:08:47 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:14:21 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	minus_int(va_list args, t_flags *flags)
 
 	arg = va_arg(args, int);
 	len = ft_nbrlen(arg);
+	if (flags->width == 0 && arg == 0)
+		return (0);
 	flags->ret += ft_putnbr(arg);
 	return (len);
 }
@@ -89,15 +91,23 @@ int	minus_handler(const char *str, int i, va_list args, t_flags *flags)
 {
 	int	j;
 
-	j = i + 1;
+	if (str[i + 1] == '.')
+	{
+		i++;
+		flags->dot = 1;
+	}
 	if (str[i + 1] >= '0' && str[i + 1] <= '9')
 	{
+		j = i + 1;
 		while (str[j] >= '0' && str[j] <= '9')
 			flags->width = flags->width * 10 + str[j++] - '0';
 		i = j;
 	}
 	else
+	{
 		i++;
+		flags->width = -1;
+	}
 	minus_type(str, i, args, flags);
 	return (i);
 }

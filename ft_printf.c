@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:34:01 by anvannin          #+#    #+#             */
-/*   Updated: 2023/03/31 09:02:56 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:54:41 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_flags	*init_flags(t_flags *flags)
 {
+	flags->dot = 0;
 	flags->width = 0;
 	flags->len = 0;
 	flags->ret = 0;
