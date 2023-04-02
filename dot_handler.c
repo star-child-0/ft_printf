@@ -6,11 +6,11 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 19:48:30 by anvannin          #+#    #+#             */
-/*   Updated: 2023/04/01 17:44:44 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:14:59 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "ft_printf.h"
 
 void	dot_uint(const char *str, int i, va_list args, t_flags *flags)
 {

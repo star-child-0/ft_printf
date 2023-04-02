@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunsign_nbr.c                                 :+:      :+:    :+:   */
+/*   plus_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 15:11:26 by anvannin          #+#    #+#             */
-/*   Updated: 2023/04/01 17:44:44 by anvannin         ###   ########.fr       */
+/*   Created: 2023/03/24 19:01:47 by anvannin          #+#    #+#             */
+/*   Updated: 2023/03/24 19:36:37 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "ft_printf.h"
 
-int	ft_putunsign_nbr(unsigned int nb)
+int	plus_handler(int i, va_list args, t_flags *flags)
 {
-	if (nb >= 10)
-		ft_putnbr(nb / 10);
-	ft_putchar((nb % 10) + 48);
-	return (ft_nbrlen(nb));
+	int	n;
+
+	n = va_arg(args, int);
+	if (n >= 0)
+		flags->ret += ft_putchar('+');
+	flags->ret += ft_putnbr(n);
+	return (++i);
 }

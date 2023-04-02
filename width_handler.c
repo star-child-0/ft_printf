@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "ft_printf.h"
 
 int	width_string(va_list args, t_flags *flags)
 {
@@ -37,7 +37,6 @@ int	width_unsign(const char *str, int i, va_list args, t_flags *flags)
 	arg = va_arg(args, int);
 	hex_len = hex_width(arg);
 	len = 0;
-	n = 0;
 	while (flags->width - hex_len > len)
 	{
 		flags->ret += ft_putchar(' ');
@@ -47,7 +46,7 @@ int	width_unsign(const char *str, int i, va_list args, t_flags *flags)
 		n = ft_putunsign_nbr(arg);
 	else if (str[i] == 'X')
 		n = ft_putnbr_hex(arg, 'X');
-	else
+	else if (str[i] == 'x')
 		n = ft_putnbr_hex(arg, 'x');
 	flags->ret += n;
 	len = n;

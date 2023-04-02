@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nbrlen.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 14:54:42 by anvannin          #+#    #+#             */
-/*   Updated: 2023/04/01 17:44:44 by anvannin         ###   ########.fr       */
+/*   Created: 2022/10/31 15:05:23 by anvannin          #+#    #+#             */
+/*   Updated: 2023/04/01 12:10:06 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "ft_printf.h"
 
-int	ft_nbrlen(long int a)
+int	ft_putnbr(int nb)
 {
-	int	i;
+	int	sign;
 
-	i = 1;
-	if (a == -2147483648)
-		return (11);
-	if (a < 0)
+	sign = 0;
+	if (nb < 0)
 	{
-		a *= -1;
-		i++;
+		ft_putchar('-');
+		if (nb == INT_MIN)
+		{
+			ft_putstr("2147483648");
+			return (11);
+		}
+		else
+			nb = -nb;
+		sign++;
 	}
-	while (a > 9)
-	{
-		a /= 10;
-		i++;
-	}
-	return (i);
+	if (nb >= 10)
+		ft_putnbr(nb / 10);
+	ft_putchar((nb % 10) + 48);
+	return (ft_nbrlen(nb) + sign);
 }

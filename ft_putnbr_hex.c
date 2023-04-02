@@ -6,11 +6,11 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:06:28 by anvannin          #+#    #+#             */
-/*   Updated: 2023/04/01 17:44:44 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:21:22 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_putnbr_base(unsigned int nbr, char *base)
 {

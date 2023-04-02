@@ -6,11 +6,11 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:34:01 by anvannin          #+#    #+#             */
-/*   Updated: 2023/04/01 17:44:44 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:54:41 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "ft_printf.h"
 
 t_flags	*init_flags(t_flags *flags)
 {
