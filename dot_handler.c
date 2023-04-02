@@ -6,7 +6,7 @@
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 19:48:30 by anvannin          #+#    #+#             */
-/*   Updated: 2023/04/01 15:14:59 by anvannin         ###   ########.fr       */
+/*   Updated: 2023/04/02 11:48:18 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	dot_uint(const char *str, int i, va_list args, t_flags *flags)
 	}
 	else if (str[i] == 'x')
 		dot_put_x(arg, flags);
-	else if (str[i] == 'X')
+	else
 		dot_put_big_x(arg, flags);
 }
 
