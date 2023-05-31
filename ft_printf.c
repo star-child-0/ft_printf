@@ -5,84 +5,154 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 18:34:01 by anvannin          #+#    #+#             */
-/*   Updated: 2023/04/01 12:54:41 by anvannin         ###   ########.fr       */
+/*   Created: 2023/05/26 08:54:44 by anvannin          #+#    #+#             */
+/*   Updated: 2023/05/26 09:09:51 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_flags	*init_flags(t_flags *flags)
+static int	ft_flags_get_value_ext(char *raw, int *i, char ph)
 {
-	flags->dot = 0;
-	flags->width = 0;
-	flags->len = 0;
-	flags->ret = 0;
+	char	*tmp;
+	int		n;
+
+	tmp = 0;
+	n = 0;
+	if (ph == '-')
+		(*i)++;
+	while (raw[*i] >= '0' && raw[*i] <= '9')
+	{
+		tmp = ft_char_append(tmp, raw[*i], 42);
+		(*i)++;
+	}
+	(*i)--;
+	if (tmp)
+		n = ft_atoi(tmp);
+	if (!n)
+		n = -1;
+	ft_free((void **)&tmp);
+	return (n);
+}
+
+static int	ft_flags_get_value(char *raw, int *i, char ph, char can_repeat)
+{
+	int		j;
+
+	j = 0;
+	if (can_repeat)
+	{
+		while (raw[*i] == ph)
+		{
+			(*i)++;
+			j++;
+		}
+		if (ph == '-')
+			(*i)--;
+	}
+	else if (ph && !can_repeat)
+		(*i)++;
+	if ((ph == '-' && (raw[*i + 1] < '0' || raw[*i + 1] > '9')) \
+		|| ((ph == '.' || ph == ' ' || ph == '0') \
+		&& (raw[*i] < '0' || raw[*i] > '9')))
+		return (-1);
+	else if (ph == ' ')
+		return (j);
+	else
+		return (ft_flags_get_value_ext(raw, i, ph));
+}
+
+static t_flags	ft_flags_set_value(t_flags flags, char *raw)
+{
+	int	i;
+
+	i = 0;
+	while (raw[i])
+	{
+		if (raw[i] == '+')
+			flags.plus = 1;
+		else if (raw[i] == '#')
+			flags.sharp = 1;
+		else if (raw[i] == ' ')
+			flags.space = ft_flags_get_value(raw, &i, ' ', 1);
+		else if (raw[i] == '.')
+			flags.dot = ft_flags_get_value(raw, &i, '.', 0);
+		else if (raw[i] == '0')
+			flags.zero = ft_flags_get_value(raw, &i, '0', 0);
+		else if (raw[i] == '-')
+			flags.dash = ft_flags_get_value(raw, &i, '-', 1);
+		else if (raw[i] >= '1' && raw[i] <= '9')
+			flags.width = ft_flags_get_value(raw, &i, 0, 0);
+		if (raw[i])
+			i++;
+	}
 	return (flags);
 }
 
-int	type_handler(const char *str, int i, va_list args, t_flags *flags)
+static t_flags	ft_flags_init(char *s, int *i)
 {
-	if (str[i] == 'c')
-		flags->ret += ft_putchar(va_arg(args, int));
-	else if (str[i] == 's')
-		flags->ret += ft_putstr(va_arg(args, char *));
-	else if (str[i] == 'd' || str[i] == 'i')
-		flags->ret += ft_putnbr(va_arg(args, int));
-	else if (str[i] == 'u')
-		flags->ret += ft_putunsign_nbr(va_arg(args, unsigned int));
-	else if (str[i] == 'p')
-		flags->ret += ft_put_pointer(va_arg(args, uintptr_t));
-	else if (str[i] == 'X' || str[i] == 'x')
-		flags->ret += ft_putnbr_hex(va_arg(args, unsigned int), str[i]);
-	else if (str[i] == '%')
-		flags->ret += ft_putchar('%');
-	return (i);
-}
+	char	*raw;
+	t_flags	flags;
 
-int	flags_handler(const char *str, int i, va_list args, t_flags *flags)
-{
-	if (str[i] == '+')
-		i = plus_handler(i, args, flags);
-	else if (str[i] == ' ')
-		i = space_handler(str, i, args, flags);
-	else if (str[i] == '#')
-		i = hash_handler(str, i, args, flags);
-	else if (str[i] == '-')
-		i = minus_handler(str, i, args, flags);
-	else if (str[i] == '0')
-		i = zero_handler(str, ++i, args, flags);
-	else if (str[i] >= '1' && str[i] <= '9')
-		i = width_handler(str, i, args, flags);
-	else if (str[i] == '.')
-		i = dot_handler(str, ++i, args, flags);
-	else
-		i = type_handler(str, i, args, flags);
-	return (i);
-}
-
-int	ft_printf(const char *str, ...)
-{
-	int		i;
-	int		ret;
-	t_flags	*flags;
-	va_list	args;
-
-	flags = malloc(sizeof(t_flags));
-	if (!flags)
-		return (0);
-	flags = init_flags(flags);
-	i = -1;
-	va_start(args, str);
-	while (str[++i] != '\0')
+	raw = 0;
+	flags.dash = 0;
+	flags.plus = 0;
+	flags.dot = 0;
+	flags.sharp = 0;
+	flags.space = 0;
+	flags.width = 0;
+	flags.zero = 0;
+	while (s[*i] != 'c' && s[*i] != 's' && s[*i] != 'p' && s[*i] != 'd' && \
+		s[*i] != 'i' && s[*i] != 'u' && s[*i] != 'x' && s[*i] != 'X' && \
+		s[*i] != '%')
+		raw = ft_char_append(raw, s[(*i)++], 42);
+	if (raw)
 	{
-		if (str[i] == '%')
-			i = flags_handler(str, ++i, args, flags);
+		flags = ft_flags_set_value(flags, raw);
+		ft_free((void **)&raw);
+	}
+	return (flags);
+}
+
+/*!
+ * @brief
+	Function that mimics the original printf();
+ * @details
+	The logic of my own ft_printf() is divided into the following three steps:
+	  - In the first step I write character after character as long as different
+		from "%", otherwise I save in an array of char everything between "%"
+		and the placeholder (c, s, d, i, u, p, x, X ) and initialize the flag
+		structure with the correct value;
+	  - In the second step I initialize a list of chars with the original value;
+	  - In the last step I "assemble" the list of chars with the relative flags,
+	  	in this phase only two operations are carried out, adding and removing
+		nodes, once all the flags have been processed, it prints the final
+		result.
+ * @param s
+	The raw string.
+ * @return
+	An integer that corresponds to the number of printed characters.
+ */
+int	ft_printf(const char *s, ...)
+{
+	int		len;
+	int		i;
+	va_list	args;
+	t_flags	flags;
+
+	len = 0;
+	i = -1;
+	va_start(args, s);
+	while (s[++i])
+	{
+		if (s[i] == '%' && ++i)
+		{
+			flags = ft_flags_init((char *)s, &i);
+			len += ft_printf_format(args, s[i], flags);
+		}
 		else
-			flags->ret += ft_putchar(str[i]);
+			len += write(1, &(s[i]), 1);
 	}
 	va_end(args);
-	ret = flags->ret;
-	free(flags);
-	return (ret);
+	return (len);
 }

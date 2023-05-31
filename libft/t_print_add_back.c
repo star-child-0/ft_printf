@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   t_print_add_back.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 09:06:11 by anvannin          #+#    #+#             */
-/*   Updated: 2023/05/26 09:06:12 by anvannin         ###   ########.fr       */
+/*   Created: 2023/05/26 09:01:57 by anvannin          #+#    #+#             */
+/*   Updated: 2023/05/26 09:01:58 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "./libft/libft.h"
-
-typedef struct flags
+/*!
+ * @brief
+	Adds the node ’new’ at the end of the list.
+ * @param lst
+	The address of a pointer to the first link of a list.
+ * @param new
+	The address of a pointer to the node to be added to the list.
+ */
+void	t_print_add_back(t_print **lst, t_print *new)
 {
-	int	width;
-	int	dash;
-	int	dot;
-	int	zero;
-	int	sharp;
-	int	plus;
-	int	space;
-}	t_flags;
+	t_print	*last;
 
-int		ft_printf(const char *s, ...);
-int		ft_printf_format(va_list args, char ph, t_flags flags);
-void	ft_printf_assembly_line(t_print **result, t_flags flags, char ph);
-
-#endif
+	last = t_print_last(*lst);
+	if (last)
+		last->next = new;
+	else
+		*lst = new;
+}
