@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   t_print_del_last.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 09:06:11 by anvannin          #+#    #+#             */
-/*   Updated: 2023/05/26 09:06:12 by anvannin         ###   ########.fr       */
+/*   Created: 2023/05/26 09:01:38 by anvannin          #+#    #+#             */
+/*   Updated: 2023/05/26 09:01:39 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "./libft/libft.h"
-
-typedef struct flags
+/*!
+ * @brief
+	Delete last n nodes.
+ * @param head
+	The address of a pointer to the first link of a list.
+ * @param n
+	Number of last nodes to be deleted.
+ */
+void	t_print_del_last(t_print **head, size_t n)
 {
-	int	width;
-	int	dash;
-	int	dot;
-	int	zero;
-	int	sharp;
-	int	plus;
-	int	space;
-}	t_flags;
+	t_print	*last;
+	t_print	*tmp;
 
-int		ft_printf(const char *s, ...);
-int		ft_printf_format(va_list args, char ph, t_flags flags);
-void	ft_printf_assembly_line(t_print **result, t_flags flags, char ph);
-
-#endif
+	while (n--)
+	{
+		tmp = *head;
+		while (tmp->next->next)
+			tmp = tmp->next;
+		last = tmp->next;
+		tmp->next = 0;
+		free(last);
+	}
+}

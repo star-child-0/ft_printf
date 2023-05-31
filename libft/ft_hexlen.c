@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_hexlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 09:06:11 by anvannin          #+#    #+#             */
-/*   Updated: 2023/05/26 09:06:12 by anvannin         ###   ########.fr       */
+/*   Created: 2023/05/26 08:54:57 by anvannin          #+#    #+#             */
+/*   Updated: 2023/05/26 08:55:11 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "./libft/libft.h"
-
-typedef struct flags
+/*!
+ * @brief 
+	Calculates the length of a hexadecimal number.
+ * @param n 
+	Number.
+ * @return 
+	Returns a size_t representing the length of a number in hexadecimal format.
+ */
+size_t	ft_hexlen(size_t n)
 {
-	int	width;
-	int	dash;
-	int	dot;
-	int	zero;
-	int	sharp;
-	int	plus;
-	int	space;
-}	t_flags;
+	size_t	i;
 
-int		ft_printf(const char *s, ...);
-int		ft_printf_format(va_list args, char ph, t_flags flags);
-void	ft_printf_assembly_line(t_print **result, t_flags flags, char ph);
-
-#endif
+	if (!n)
+		return (1);
+	i = 0;
+	while (n)
+	{
+		n /= 16;
+		i++;
+	}
+	return (i);
+}

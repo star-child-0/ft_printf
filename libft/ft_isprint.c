@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 09:06:11 by anvannin          #+#    #+#             */
-/*   Updated: 2023/05/26 09:06:12 by anvannin         ###   ########.fr       */
+/*   Created: 2023/05/26 08:55:39 by anvannin          #+#    #+#             */
+/*   Updated: 2023/05/26 08:55:40 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "./libft/libft.h"
-
-typedef struct flags
+/*!
+ * @brief
+	Checks for any printable character including space.
+ * @return
+	The values returned are nonzero if the character c falls into the tested
+	class, and zero if not.
+ */
+int	ft_isprint(int c)
 {
-	int	width;
-	int	dash;
-	int	dot;
-	int	zero;
-	int	sharp;
-	int	plus;
-	int	space;
-}	t_flags;
-
-int		ft_printf(const char *s, ...);
-int		ft_printf_format(va_list args, char ph, t_flags flags);
-void	ft_printf_assembly_line(t_print **result, t_flags flags, char ph);
-
-#endif
+	return (c >= 32 && c <= 126);
+}

@@ -1,42 +1,33 @@
-FILES = ft_printf.c\
-	width_handler.c minus_handler.c zero_handler.c dot_handler.c\
-	hash_handler.c space_handler.c plus_handler.c \
-	ft_putchar.c ft_putstr.c ft_putnbr.c ft_nbrlen.c ft_put_pointer.c \
-	ft_putnbr_hex.c ft_putunsign_nbr.c ft_atoi.c ft_strlen.c ft_itoh.c\
-	hex_width.c dot_put_hexes.c
+NAME 	= libftprintf.a
 
-OBJECTS = $(FILES:.c=.o)
+CC 		= clang
 
-CC = gcc
+CFLAGS	= -Wall -Wextra -Werror
 
-RM = rm -f
+SRCS	= ft_printf.c ft_printf_assembly_line.c ft_printf_format.c
 
-CFLAGS = -Wall -Wextra -Werror
+OBJS	= $(SRCS:.c=.o)
 
-NAME = libftprintf.a
+AR		= ar -rcs
+
+RM 		= rm -f
 
 all: $(NAME)
 
-bonus: all
-
-$(NAME): $(OBJECTS)
-	@echo "Compiling ft_printf"
-	@$(CC) $(CFLAGS) -c $(FILES)
-	@ar -rs libftprintf.a $(OBJECTS)
-	@echo "Done"
+$(NAME): $(OBJS)
+	cd libft && make
+	$(AR) $(NAME) $(OBJS)
 
 clean:
-	@echo "Cleaning"
-	@$(RM) $(OBJECTS)
-	@echo "Done"
+	$(RM) $(OBJS)
+	cd libft && make clean
 
 fclean: clean
-	@echo "Removing"
-	@$(RM) $(NAME) $(OBJECTS)
-	@echo "Done"
+	$(RM) $(NAME)
+	cd libft && make fclean
 
-re: fclean bonus
+bonus: all
 
+re: fclean all
 
-.PHONY:	all clean fclean re bonus
 .SILENT:

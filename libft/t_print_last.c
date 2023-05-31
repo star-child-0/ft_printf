@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   t_print_last.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anvannin <anvannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 09:06:11 by anvannin          #+#    #+#             */
-/*   Updated: 2023/05/26 09:06:12 by anvannin         ###   ########.fr       */
+/*   Created: 2023/05/26 09:01:22 by anvannin          #+#    #+#             */
+/*   Updated: 2023/05/26 09:01:23 by anvannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "./libft/libft.h"
-
-typedef struct flags
+/*!
+ * @brief
+	Returns the last node of the list.
+ * @param lst
+	The beginning of the list.
+ * @return
+	Last node of the list.
+ */
+t_print	*t_print_last(t_print *lst)
 {
-	int	width;
-	int	dash;
-	int	dot;
-	int	zero;
-	int	sharp;
-	int	plus;
-	int	space;
-}	t_flags;
-
-int		ft_printf(const char *s, ...);
-int		ft_printf_format(va_list args, char ph, t_flags flags);
-void	ft_printf_assembly_line(t_print **result, t_flags flags, char ph);
-
-#endif
+	while (lst)
+	{
+		if (!lst->next)
+			return (lst);
+		lst = lst->next;
+	}
+	return (lst);
+}
